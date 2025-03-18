@@ -356,6 +356,21 @@ button#calculate-fare {
     width: 30px;
     height: 30px;
 }
+.traffic-indicator {
+    font-size: 0.8em;
+    margin-left: 10px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background-color: #f1f1f1;
+  }
+  
+  .traffic-alert {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 4px;
+  }
 
 .comparison-info h5 {
     font-size: 0.9rem;
