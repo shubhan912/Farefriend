@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FareFriend - Mumbai Auto-Rickshaw Fare Estimator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <img src="https://via.placeholder.com/50" alt="Logo" id="logo-img">
+                <h1>FareFriend</h1>
+            </div>
+            <div class="header-buttons">
+                <button id="history-btn" class="btn btn-secondary"><i class="fas fa-history"></i> History</button>
+                <button id="profile-btn" class="btn btn-secondary"><i class="fas fa-user"></i> Profile</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="rickshaw-theme">
+                <div class="rickshaw-top"></div>
+                <div class="rickshaw-body">
+                    <div class="fare-calculator">
+                        <h2><i class="fas fa-calculator"></i> Auto Fare Estimator</h2>
+                        
+                        <div class="location-inputs">
+                            <div class="input-group">
+                                <label for="pickup-location"><i class="fas fa-map-marker-alt"></i> Pickup Location</label>
+                                <input type="text" id="pickup-location" placeholder="Enter pickup location...">
+                                <button id="current-location" class="btn btn-small"><i class="fas fa-location-arrow"></i></button>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="dropoff-location"><i class="fas fa-map-pin"></i> Dropoff Location</label>
+                                <input type="text" id="dropoff-location" placeholder="Enter destination...">
+                            </div>
+                        </div>
+                        
+                        <div class="time-options">
+                            <div class="input-group">
+                                <label><i class="fas fa-clock"></i> Journey Time</label>
+                                <select id="journey-time">
+                                    <option value="now">Now</option>
+                                    <option value="schedule">Schedule for Later</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group" id="schedule-time-container" style="display: none;">
+                                <label for="schedule-time">Select Time</label>
+                                <input type="datetime-local" id="schedule-time">
+                            </div>
+                        </div>
+                        
+                        <button id="calculate-fare" class="btn btn-primary"><i class="fas fa-rupee-sign"></i> Calculate Fare</button>
+                    </div>
+                    
+                    <div id="fare-result" class="fare-result" style="display: none;">
+                        <div class="result-header">
+                            <h3>Estimated Fare</h3>
+                            <span class="confidence-score">
+                                <i class="fas fa-check-circle"></i> <span id="confidence-value">95%</span> confidence
+                            </span>
+                        </div>
+                        
+                        <div class="route-info">
+                            <div class="route-details">
+                                <p><strong>Distance:</strong> <span id="distance-value">0</span> km</p>
+                                <p><strong>Est. Travel Time:</strong> <span id="time-value">0</span> min</p>
+                            </div>
+                            <div id="map-thumbnail" class="map-thumbnail">
+                                <!-- Map will be inserted here by JS -->
+                            </div>
+                        </div>
+                        
+                        <div class="fare-breakdown">
+                            <h4>Fare Breakdown</h4>
+                            <table>
+                                <tr>
+                                    <td>Base Fare</td>
+                                    <td>₹<span id="base-fare">0</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Distance Charge (<span id="distance-charged">0</span> km)</td>
+                                    <td>₹<span id="distance-fare">0</span></td>
+                                </tr>
+                                <tr id="night-charge-row" style="display: none;">
+                                    <td>Night Charge (12am - 5am)</td>
+                                    <td>₹<span id="night-fare">0</span></td>
+                                </tr>
+                                <tr id="waiting-charge-row" style="display: none;">
+                                    <td>Waiting Charge</td>
+                                    <td>₹<span id="waiting-fare">0</span></td>
+                                </tr>
+                            </table>
+                            
+                            <div class="total-fare">
+                                <span>Total Estimated Fare</span>
+                                <span class="total-value">₹<span id="total-fare">0</span></span>
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-section">
+                            <h4>Compare with Other Options</h4>
+                            <div class="comparison-cards">
+                                <div class="comparison-card">
+                                    <img src="https://via.placeholder.com/30" alt="Auto" class="transport-icon">
+                                    <div class="comparison-info">
+                                        <h5>Auto-Rickshaw</h5>
+                                        <p>₹<span id="auto-fare-compare">0</span></p>
+                                    </div>
+                                </div>
+                                <div class="comparison-card">
+                                    <img src="https://via.placeholder.com/30" alt="Ola" class="transport-icon">
+                                    <div class="comparison-info">
+                                        <h5>Ola Mini</h5>
+                                        <p>₹<span id="ola-fare">0</span></p>
+                                    </div>
+                                </div>
+                                <div class="comparison-card">
+                                    <img src="https://via.placeholder.com/30" alt="Uber" class="transport-icon">
+                                    <div class="comparison-info">
+                                        <h5>Uber Go</h5>
+                                        <p>₹<span id="uber-fare">0</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button id="share-btn" class="btn btn-secondary"><i class="fas fa-share-alt"></i> Share</button>
+                            <button id="save-btn" class="btn btn-secondary"><i class="fas fa-bookmark"></i> Save</button>
+                            <button id="report-btn" class="btn btn-primary"><i class="fas fa-flag"></i> Report Actual Fare</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="rickshaw-wheels">
+                    <div class="wheel left-wheel"></div>
+                    <div class="wheel right-wheel"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Report Fare Modal -->
+        <div id="report-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3>Report Actual Fare</h3>
+                <p>Help the community by reporting the actual fare you paid</p>
+                
+                <div class="input-group">
+                    <label for="actual-fare">Actual Fare Paid (₹)</label>
+                    <input type="number" id="actual-fare" placeholder="Enter amount...">
+                </div>
+                
+                <div class="input-group">
+                    <label for="fare-issues">Any Issues? (Optional)</label>
+                    <select id="fare-issues" multiple>
+                        <option value="meter-tampering">Meter Tampering</option>
+                        <option value="refused-short-distance">Refused Short Distance</option>
+                        <option value="demanded-extra">Demanded Extra Charge</option>
+                        <option value="no-issues">No Issues</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="additional-comments">Additional Comments</label>
+                    <textarea id="additional-comments" placeholder="Any other details?"></textarea>
+                </div>
+                
+                <button id="submit-report" class="btn btn-primary">Submit Report</button>
+            </div>
+        </div>
+
+        <!-- History Modal -->
+        <div id="history-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3>Your Trip History</h3>
+                
+                <div id="history-list" class="history-list">
+                    <!-- History items will be inserted here by JS -->
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 FareFriend - Mumbai Auto-Rickshaw Fare Estimator</p>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Contact</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

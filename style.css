@@ -1,0 +1,541 @@
+:root {
+    --primary-color: #F7B801; /* Auto yellow */
+    --secondary-color: #131313; /* Dark grey for text */
+    --accent-color: #00A64A; /* Green accents */
+    --background-color: skyblue;
+    --card-color: white;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+    --border-radius: 8px;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --rickshaw-color: #1A73E8; /* Royal blue for the rickshaw */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    margin-bottom: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* Main content styles */
+main {
+    margin-bottom: 30px;
+}
+
+/* Rickshaw theme styling */
+.rickshaw-theme {
+    position: relative;
+    margin: 30px auto;
+}
+
+.rickshaw-top {
+    background-color: var(--rickshaw-color);
+    height: 50px;
+    border-radius: 15px 15px 0 0;
+    position: relative;
+}
+
+.rickshaw-top:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 40px;
+    background-color: var(--rickshaw-color);
+    border-radius: 30px 30px 0 0;
+}
+
+.rickshaw-body {
+    background-color: var(--card-color);
+    padding: 20px;
+    border-radius: 0;
+    box-shadow: var(--shadow);
+    z-index: 10;
+    position: relative;
+}
+
+.rickshaw-wheels {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+    margin-top: -10px;
+}
+
+.wheel {
+    width: 60px;
+    height: 60px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    position: relative;
+    border: 10px solid #444;
+}
+
+.wheel:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15px;
+    height: 15px;
+    background-color: #777;
+    border-radius: 50%;
+}
+
+/* Form styling */
+.fare-calculator {
+    margin-bottom: 30px;
+}
+
+.fare-calculator h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: var(--rickshaw-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.location-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.input-group label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(247, 184, 1, 0.2);
+}
+
+button#current-location {
+    position: absolute;
+    right: 10px;
+    top: 38px;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.time-options {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.time-options .input-group {
+    flex: 1;
+}
+
+/* Button styling */
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.btn-primary:hover {
+    background-color: #e5a901;
+}
+
+.btn-secondary {
+    background-color: #f1f1f1;
+    color: var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background-color: #e1e1e1;
+}
+
+.btn-small {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+
+button#calculate-fare {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+}
+
+/* Fare result styling */
+.fare-result {
+    background-color: var(--card-color);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-top: 30px;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.result-header h3 {
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+}
+
+.confidence-score {
+    background-color: #e6f7e9;
+    color: var(--success-color);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.route-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.route-details {
+    flex: 1;
+}
+
+.map-thumbnail {
+    width: 150px;
+    height: 100px;
+    background-color: #eee;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.fare-breakdown {
+    margin-bottom: 20px;
+}
+
+.fare-breakdown h4 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.fare-breakdown table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.fare-breakdown table td {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.fare-breakdown table td:last-child {
+    text-align: right;
+}
+
+.total-fare {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid #eee;
+}
+
+.comparison-section {
+    margin-bottom: 25px;
+}
+
+.comparison-section h4 {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.comparison-cards {
+    display: flex;
+    gap: 15px;
+}
+
+.comparison-card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+    gap: 10px;
+}
+
+.transport-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.comparison-info h5 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.comparison-info p {
+    font-weight: 600;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons button {
+    flex: 1;
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: var(--card-color);
+    margin: 10% auto;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal h3 {
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+.modal p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.modal .input-group {
+    margin-bottom: 20px;
+}
+
+.history-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-route-info {
+    flex: 1;
+}
+
+.history-route-info h4 {
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+.history-route-info p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.history-fare {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    margin: 0 10px;
+    color: #666;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .app-container {
+        padding: 10px;
+    }
+    
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .header-buttons {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .time-options {
+        flex-direction: column;
+    }
+    
+    .route-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .map-thumbnail {
+        width: 100%;
+    }
+    
+    .comparison-cards {
+        flex-direction: column;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+        padding: 20px;
+    }
+}
+
+/* Animation for the wheels */
+@keyframes wheelSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.wheel:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 50%;
+    background-color: #444;
+    transform-origin: bottom;
+    animation: wheelSpin 3s linear infinite;
+}
